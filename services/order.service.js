@@ -19,7 +19,8 @@ class Order_Service {
     }
 
     changeStatus(order_id, status_id) {
-        const OrderModel = dataBase.getModel('orders.js');
+
+        const OrderModel = dataBase.getModel('orders');
         try {
 
             return OrderModel.update({
@@ -36,3 +37,5 @@ class Order_Service {
 
     }
 }
+
+module.exports = new Order_Service();

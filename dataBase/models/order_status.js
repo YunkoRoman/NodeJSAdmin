@@ -11,6 +11,9 @@ module.exports = (sequelize, DataTypes) => {
         status: {
             type: DataTypes.STRING,
         },
+        default: {
+            type: DataTypes.BOOLEAN,
+        },
 
     }, {
         tableName: 'order_status',
