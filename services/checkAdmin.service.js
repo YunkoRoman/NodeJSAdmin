@@ -9,6 +9,9 @@ class checkService {
         try {
             if (!login && !password) throw new Error('No login or password');
             return AdminModel.findOne({
+                attributes:{
+                  exclude:['login', 'password']
+                },
                 where: {
                     login,
                     password

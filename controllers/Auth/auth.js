@@ -12,12 +12,12 @@ module.exports = async (req, res, next) => {
         const AdminIsRegistr = await checkAdmin.checkAdmin(login, password);
         if (!AdminIsRegistr) throw new Error('You are not register');
 
-        // const {id, name, surname} = UserIsRegistr;
-        // const token = tokinayzer.auth({id, name, surname});
+        const {id, name, surname} = AdminIsRegistr;
+        const token = tokinayzer.auth({id, name, surname});
 
         res.json({
             success: true,
-            msg: AdminIsRegistr
+            msg: token
         })
 
 

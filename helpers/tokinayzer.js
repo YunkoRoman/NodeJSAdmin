@@ -4,7 +4,7 @@ const {AuthSecret, secret} = require('../constants/secret');
 
 module.exports = {
     auth: token => {
-        return jwt.sign(token, AuthSecret, {expiresIn: '30d'})
+        return jwt.sign(token, AuthSecret, {expiresIn: '2d'})
     },
 
     register: data => {
