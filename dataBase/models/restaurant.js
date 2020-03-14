@@ -1,6 +1,6 @@
 module.exports = (sequelize, DataTypes) => {
-    const admin = sequelize.define('admins', {
-        admin_id: {
+    const restaurant = sequelize.define('restaurant', {
+        id: {
             type: DataTypes.INTEGER,
             primaryKey: true,
             autoIncrement: true
@@ -8,23 +8,21 @@ module.exports = (sequelize, DataTypes) => {
         name: {
             type: DataTypes.STRING
         },
-        surname: {
+        description: {
             type: DataTypes.STRING,
         },
-        login: {
+        address: {
             type: DataTypes.STRING,
         },
-        password: {
+        path_to_img: {
             type: DataTypes.STRING,
-        },
-        restaurant_id: {
-            type: DataTypes.INTEGER,
         },
 
     }, {
-        tableName: 'admins',
+        tableName: 'restaurants',
         timestamps: false
     });
 
-    return admin
+
+    return restaurant
 };

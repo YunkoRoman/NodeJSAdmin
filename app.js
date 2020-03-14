@@ -19,7 +19,7 @@ app.options('*', cors());
 
 const dataBase = require('./dataBase').getInstance();
 
-const {orderRoutes,authRoutes} = require('./routes');
+const {orderRoutes,authRoutes, restStat} = require('./routes');
 
 dataBase.setModels();
 
@@ -30,6 +30,7 @@ app.use(express.urlencoded({extended: true}));
 
 app.use('/order', orderRoutes);
 app.use('/auth', authRoutes);
+app.use('/statistic', restStat );
 
 
 
