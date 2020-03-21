@@ -1,6 +1,6 @@
 const ControllerError = require('../../errors/ControllerError');
-const {restStat} = require('../../services');
 const tokenVerif = require('../../helpers/tokenVerifikator');
+const {adminCreate} = require('../../services');
 
 module.exports = async (req, res, next) => {
 
@@ -10,16 +10,19 @@ module.exports = async (req, res, next) => {
 
         const {restaurant_id} = tokenVerif.auth(token);
 
-        const {dateStart, dateEnd} = req.body;
+        const form = req.body;
 
-        const statistics = await restStat.restStat(restaurant_id, dateStart, dateEnd);
+
+        const createProd = await adminCreate.createProduct(form, restaurant_id);
+
 
         res.json({
             success: true,
-            msg:statistics
+            msg:createProd
         });
 
     } catch (e) {
-        next(new ControllerError(e.message, e.status, 'controllers/restaurantStat/prodStat'))
+        next(new ControllerError(e.message, e.status, 'controllers/admin/createProduct'))
     }
-};
+
+}

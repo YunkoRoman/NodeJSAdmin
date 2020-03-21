@@ -1,12 +1,17 @@
+const tokenVerif = require("../../helpers/tokenVerifikator");
+
 const ControllerError = require('../../errors/ControllerError');
 const {restStat} = require('../../services');
 
 module.exports = async (req, res, next) => {
 
     try {
-        console.log(req.params);
-        const {id} = req.params;
-        const menuList = await restStat.getMenuList(id);
+
+        const token = req.get('Authorization');
+        if (!token) throw new Error('No token');
+
+        const {restaurant_id} = tokenVerif.auth(token);
+        const menuList = await restStat.getMenuList(restaurant_id);
 
         res.json({
             success: true,

@@ -1,6 +1,8 @@
 const express = require('express');
 const path = require('path');
 const cors = require('cors');
+const fileUpload = require('express-fileupload');
+
 
 
 
@@ -16,10 +18,11 @@ app.use(function(req, res, next) {
 
 app.use(cors());
 app.options('*', cors());
+app.use(fileUpload());
 
 const dataBase = require('./dataBase').getInstance();
 
-const {orderRoutes,authRoutes, restStat} = require('./routes');
+const {orderRoutes,authRoutes, restStat, admin } = require('./routes');
 
 dataBase.setModels();
 
@@ -28,9 +31,11 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 
+global.appRoot = __dirname
 app.use('/order', orderRoutes);
 app.use('/auth', authRoutes);
 app.use('/statistic', restStat );
+app.use('/admin', admin );
 
 
 

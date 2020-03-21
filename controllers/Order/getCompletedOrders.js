@@ -5,7 +5,6 @@ module.exports = async (req, res, next) => {
         const {id: restaurant_id} = req.params;
         console.log(restaurant_id);
         const result = await orderService.getCompletedOrders(restaurant_id);
-        console.log(result);
         res.json({
             success: true,
             msg: result

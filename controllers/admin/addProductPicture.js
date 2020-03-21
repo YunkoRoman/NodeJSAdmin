@@ -1,6 +1,6 @@
 const ControllerError = require('../../errors/ControllerError');
-const {restStat} = require('../../services');
 const tokenVerif = require('../../helpers/tokenVerifikator');
+const {adminCreate} = require('../../services');
 
 module.exports = async (req, res, next) => {
 
@@ -9,17 +9,19 @@ module.exports = async (req, res, next) => {
         if (!token) throw new Error('No token');
 
         const {restaurant_id} = tokenVerif.auth(token);
+        const {id} = req.params;
+        const {picture} = req.files;
 
-        const {dateStart, dateEnd} = req.body;
-
-        const statistics = await restStat.restStat(restaurant_id, dateStart, dateEnd);
+        const addPicture = await adminCreate.addPicture(picture, restaurant_id, id);
 
         res.json({
             success: true,
-            msg:statistics
+            msg: addPicture
         });
 
+
     } catch (e) {
-        next(new ControllerError(e.message, e.status, 'controllers/restaurantStat/prodStat'))
+        next(new ControllerError(e.message, e.status, 'controllers/admin/addProductPicture'))
     }
-};
+
+}
